@@ -9,32 +9,12 @@ dbus-uuidgen > /var/lib/dbus/machine-id
 dpkg-divert --local --rename --add /sbin/initctl
 
 # install docker
-sudo apt-get install --yes wget
+apt-get install --yes wget
 wget -qO- https://get.docker.com/ | sh
 
-# mount cgroupfs for Docker pull operation
-cgroupfs_mount() {
-        # see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
-        if grep -v '^#' /etc/fstab | grep -q cgroup \
-                || [ ! -e /proc/cgroups ] \
-                || [ ! -d /sys/fs/cgroup ]; then
-                return
-        fi
-        if ! mountpoint -q /sys/fs/cgroup; then
-                mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup /sys/fs/cgroup
-        fi
-        (
-                cd /sys/fs/cgroup
-                for sys in $(awk '!/^#/ { if ($4 == 1) print $1 }' /proc/cgroups); do
-                        mkdir -p $sys
-                        if ! mountpoint -q $sys; then
-                                if ! mount -n -t cgroup -o $sys cgroup $sys; then
-                                        rmdir $sys || true
-                                fi
-                        fi
-                done
-        )
-}
+# mount cgroupfs for dockerd to start
+# see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
+apt-get install --yes cgroupfs_mount
 cgroupfs_mount
 
 # pull tensorflow and pytorch docker image
@@ -47,17 +27,7 @@ docker pull tensorflow/tensorflow
 # stop dockerd
 pkill dockerd
 
-# umount cgroupfs
-cd /sys/fs/cgroup
-for sys in *; do
-    if mountpoint -q $sys; then
-        umount $sys
-    fi
-    if [ -d $sys ]; then
-        rmdir $sys || true
-    fi
-done
-cd -
+cgroupfs_umount
 
 ln -s /bin/true /sbin/initctl
 
@@ -103,7 +73,7 @@ rm /etc/resolv.conf
 #umount -lf /proc
 #umount -lf /sys
 #umount -lf /dev
-#umount -lf /dev/pts
+umount -lf /dev/pts
 
 #-------------------------------------------------------------------------------
 #Finish clean

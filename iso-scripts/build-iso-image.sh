@@ -29,10 +29,10 @@ sudo chroot chroot /bin/bash /root/in-chroot.sh
 
 #sudo systemctl stop docker.service
 
-#sudo umount chroot/dev
-#sudo umount chroot/sys
-#sudo umount chroot/proc
-#TODO umount chroot
+sudo umount chroot/dev
+sudo umount chroot/sys
+sudo umount chroot/proc
+sudo umount chroot/
 # 暂时无法解决挂载的问题，所以重启后继续
 echo "fail to solve umount problem, continue after reboot"
 exit
