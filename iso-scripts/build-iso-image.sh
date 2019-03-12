@@ -1,5 +1,5 @@
-sudo apt update
-sudo apt install --yes debootstrap
+sudo apt-get update
+sudo apt-get install --yes debootstrap
 
 mkdir -p work/chroot
 cd work
@@ -29,10 +29,13 @@ sudo chroot chroot /bin/bash /root/in-chroot.sh
 
 #sudo systemctl stop docker.service
 
-sudo umount chroot/dev
-sudo umount chroot/sys
-sudo umount chroot/proc
+#sudo umount chroot/dev
+#sudo umount chroot/sys
+#sudo umount chroot/proc
 #TODO umount chroot
+# 暂时无法解决挂载的问题，所以重启后继续
+echo "fail to solve umount problem, continue after reboot"
+exit
 
 sudo apt-get install --yes syslinux squashfs-tools genisoimage
 mkdir -p image/{casper,isolinux,install}
@@ -42,7 +45,7 @@ sudo cp chroot/boot/vmlinuz-* image/casper/vmlinuz
 sudo cp chroot/boot/initrd.img* image/casper/initrd.lz
 
 # Install isolinux
-sudo apt install --yes isolinux
+sudo apt-get install --yes isolinux
 cp /usr/lib/ISOLINUX/isolinux.bin image/isolinux/
 cp /usr/lib/syslinux/modules/bios/ldlinux.c32 image/isolinux/ # for syslinux 5.00 and newer
 

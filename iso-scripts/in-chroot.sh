@@ -9,7 +9,7 @@ dbus-uuidgen > /var/lib/dbus/machine-id
 dpkg-divert --local --rename --add /sbin/initctl
 
 # install docker
-sudo apt install --yes wget
+sudo apt-get install --yes wget
 wget -qO- https://get.docker.com/ | sh
 
 # mount cgroupfs for Docker pull operation
@@ -72,7 +72,7 @@ apt-get install --yes discover laptop-detect os-prober
 apt-get install --yes linux-generic
 
 # Install GUI (Optional)
-# apt-get install --yes ubiquity-frontend-gtk
+apt-get install --yes ubiquity-frontend-gtk
 
 # clean environment
 #-------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ ls /boot/vmlinuz* > list.txt
 sum=$(cat list.txt | grep '[^ ]' | wc -l)
 
 if [ $sum -gt 1 ]; then
-dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/[(.*\)-\([^0-9][+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get -y purge
+dpkg -l 'linux-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/[(.*\)-\([^0-9][+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d' | xargs sudo apt-get --yes purge
 fi
 
 rm list.txt
