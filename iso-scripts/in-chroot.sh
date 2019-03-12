@@ -77,4 +77,5 @@ umount -lf /dev/pts
 
 #-------------------------------------------------------------------------------
 #Finish clean
+echo "Finish clean"
 exit
