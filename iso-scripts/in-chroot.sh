@@ -14,20 +14,20 @@ wget -qO- https://get.docker.com/ | sh
 
 # mount cgroupfs for dockerd to start
 # see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
-apt-get install --yes cgroupfs_mount
-cgroupfs_mount
+apt-get install --yes cgroupfs-mount
+cgroupfs-mount
 
 # pull tensorflow and pytorch docker image
 nohup dockerd &
-echo "sleep 5s"
-sleep 5
+echo "sleep 10s"
+sleep 10
 docker pull tensorflow/tensorflow
 #docker pull pytorch/pytorch
 
 # stop dockerd
 pkill dockerd
 
-cgroupfs_umount
+cgroupfs-umount
 
 ln -s /bin/true /sbin/initctl
 
@@ -46,7 +46,7 @@ echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 locale-gen en_US.UTF-8
-apt-get install --yes ubiquity-frontend-gtk
+apt-get install --yes ubiquity-frontend-gtk ubuntu-desktop
 
 # clean environment
 #-------------------------------------------------------------------------------

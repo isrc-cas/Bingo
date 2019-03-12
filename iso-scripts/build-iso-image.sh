@@ -174,5 +174,6 @@ cd image
 echo "start make iso file"
 sudo mkisofs -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../ubuntu-remix.iso .
 echo "finish make iso file"
-mv ./ubuntu-remix.iso ..
+pwd
+mv ../ubuntu-remix.iso ../..
 cd ..
