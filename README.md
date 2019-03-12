@@ -21,6 +21,8 @@ ISO 镜像脚本使用方法：
 git clone https://isrc.iscas.ac.cn/gitlab/suhang/devops
 cd iso-scripts
 ./build-iso-image.sh #neet sudo
+reboot
+./second-step.sh
 ```
 
 **TODO:**
