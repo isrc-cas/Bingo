@@ -20,9 +20,9 @@ ISO 镜像脚本使用方法：
 ```sh
 git clone https://isrc.iscas.ac.cn/gitlab/suhang/devops
 cd iso-scripts
-./build-iso-image.sh #neet sudo
+./build-iso-image.sh # need sudo
 reboot
-./second-step.sh
+./second-step.sh # need sudo
 ```
 
 **TODO:**
