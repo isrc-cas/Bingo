@@ -41,6 +41,6 @@ Docker 镜像维护
 | :heavy_multiplication_x: | [Deepo](https://github.com/ufoym/deepo) 的使用及维护方法                                                |
 | :heavy_multiplication_x: | 尝试用 Docker 包的方式提供训练数据仓库                                                                  |
 
-寒武纪 Docker 包尝试拆分
+寒武纪 Docker 镜像尝试拆分
 --------------------------------------------------------------------------------
 TODO
