@@ -10,14 +10,14 @@ echo "sudo debootstrap --arch=amd64 $(lsb_release -cs) chroot https://mirrors.tu
 sudo debootstrap --arch=amd64 $(lsb_release -cs) chroot https://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 
 # `mount --bind chroot chroot` step is necessary for Docker to run
-# For more information, see links below:
+# For more information, refer links below:
 # https://github.com/moby/moby/issues/34817#issuecomment-330872420
 # http://wiki.baserock.org/guides/build-failures/#index7h2
 echo "sudo mount --bind chroot chroot"
 sudo mount --bind chroot chroot
 
 # The following three commands is necessary, for system call.
-# For more information, see links below:
+# For more information, refer links below:
 # https://github.com/moby/moby/issues/7585#issuecomment-77587659
 echo "sudo mount --bind /dev chroot/dev"
 sudo mount --bind /dev chroot/dev
@@ -41,12 +41,12 @@ sudo chroot chroot /bin/bash /root/in-chroot.sh
 
 #sudo systemctl stop docker.service
 
-echo "sudo umount chroot/dev"
-sudo umount chroot/dev
-echo "sudo umount chroot/sys"
-sudo umount chroot/sys
 echo "sudo umount chroot/proc"
 sudo umount chroot/proc
+echo "sudo umount chroot/sys"
+sudo umount chroot/sys
+echo "sudo umount chroot/dev"
+sudo umount chroot/dev
 echo "sudo umount chroot/"
 sudo umount chroot/
 ## 暂时无法解决挂载的问题，所以重启后继续

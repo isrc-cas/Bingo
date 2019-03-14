@@ -3,18 +3,15 @@ mount none -t devpts /dev/pts
 export HOME=/root
 export LC_ALL=C
 
-apt-get update
-apt-get install --yes dbus
+apt-get update && apt-get install --yes dbus wget cgroupfs-mount
 dbus-uuidgen > /var/lib/dbus/machine-id
 dpkg-divert --local --rename --add /sbin/initctl
 
 # install docker
-apt-get install --yes wget
 wget -qO- https://get.docker.com/ | sh
 
 # mount cgroupfs for dockerd to start
 # see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
-apt-get install --yes cgroupfs-mount
 cgroupfs-mount
 
 # pull tensorflow and pytorch docker image
@@ -32,7 +29,7 @@ cgroupfs-umount
 ln -s /bin/true /sbin/initctl
 
 # install grub-pc
-# For more information, see: https://gist.github.com/sawanoboly/9829017
+# For more information, refer: https://gist.github.com/sawanoboly/9829017
 echo "grub-pc grub-pc/install_devices multiselect /dev/sda" | debconf-set-selections
 apt-get install --yes grub-pc
 
@@ -46,7 +43,7 @@ echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 locale-gen en_US.UTF-8
-apt-get install --yes ubiquity-frontend-kde ubuntu-desktop
+apt-get install --yes ubiquity-frontend-gtk ubuntu-desktop
 
 # clean environment
 #-------------------------------------------------------------------------------

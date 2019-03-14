@@ -41,4 +41,3 @@ do
   fi
   id=${array[2]}
 done < 'tags_list'
-
