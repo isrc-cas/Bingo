@@ -3,9 +3,25 @@ mount none -t devpts /dev/pts
 export HOME=/root
 export LC_ALL=C
 
-apt-get update && apt-get install --yes dbus wget cgroupfs-mount
+apt-get update && apt-get install --yes dbus
 dbus-uuidgen > /var/lib/dbus/machine-id
 dpkg-divert --local --rename --add /sbin/initctl
+ln -s /bin/true /sbin/initctl
+
+# For grub-pc
+# more information, refer: https://gist.github.com/sawanoboly/9829017
+echo "grub-pc grub-pc/install_devices multiselect /dev/sda" | debconf-set-selections
+
+echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+locale-gen en_US.UTF-8
+
+# Install packages needed for Live System
+apt-get install --yes wget cgroupfs-mount ubuntu-standard casper lupin-casper discover laptop-detect os-prober linux-generic linux-modules-extra-$(uname -r) linux-modules-$(uname -r)
+
+# Install GUI (Optional)
+apt-get install --yes ubiquity-frontend-gtk ubuntu-desktop
 
 # install docker
 wget -qO- https://get.docker.com/ | sh
@@ -25,25 +41,6 @@ docker pull tensorflow/tensorflow
 pkill dockerd
 
 cgroupfs-umount
-
-ln -s /bin/true /sbin/initctl
-
-# install grub-pc
-# For more information, refer: https://gist.github.com/sawanoboly/9829017
-echo "grub-pc grub-pc/install_devices multiselect /dev/sda" | debconf-set-selections
-apt-get install --yes grub-pc
-
-# Install packages needed for Live System
-apt-get install --yes ubuntu-standard casper lupin-casper
-apt-get install --yes discover laptop-detect os-prober
-apt-get install --yes linux-generic
-
-# Install GUI (Optional)
-echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-locale-gen en_US.UTF-8
-apt-get install --yes ubiquity-frontend-gtk ubuntu-desktop
 
 # clean environment
 #-------------------------------------------------------------------------------
