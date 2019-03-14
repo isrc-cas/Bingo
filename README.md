@@ -18,7 +18,7 @@ Building Machine Learning Operating System - Scripts and Document
 --------------------------------------------------------------------------------
 ISO 镜像脚本使用方法：
 ```sh
-git clone https://isrc.iscas.ac.cn/gitlab/suhang/devops
+git clone https://isrc.iscas.ac.cn/gitlab/riscv/bingo
 cd iso-scripts
 ./build-iso-image.sh # need sudo
 ```
