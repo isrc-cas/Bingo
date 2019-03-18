@@ -35,7 +35,7 @@ Docker 镜像维护
 --------------------------------------------------------------------------------
 | 完成情况                 |                                              任务                                                       |
 | :----------------------: | :-----------------------------------------------------------------------------------------------------: |
-| :heavy_multiplication_x: | 维护官方仓库和 Deepo 仓库的自动脚本，自动周期推送至位于 http://isrc.iscas.ac.cn/ 服务器的 Registry 仓库 |
+| :heavy_check_mark:       | 维护官方仓库和 Deepo 仓库的自动脚本，自动周期推送至位于 http://isrc.iscas.ac.cn/ 服务器的 Registry 仓库 |
 | :heavy_multiplication_x: | Deepo 构建的 Docker 仓库正确性验证，自动化脚本                                                          |
 | :heavy_multiplication_x: | Registry 仓库使用说明                                                                                   |
 | :heavy_multiplication_x: | [Deepo](https://github.com/ufoym/deepo) 的使用及维护方法                                                |
