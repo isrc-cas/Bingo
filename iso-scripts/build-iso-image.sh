@@ -59,9 +59,9 @@ mkdir -p image/{casper,isolinux,install}
 
 #TODO vmlinuz need sudo, is that right?
 echo "sudo cp chroot/boot/vmlinuz-* image/casper/vmlinuz"
-sudo cp chroot/boot/vmlinuz-* image/casper/vmlinuz
+sudo cp chroot/boot/vmlinuz-$(uname -r) image/casper/vmlinuz
 echo "sudo cp chroot/boot/initrd.img* image/casper/initrd.lz"
-sudo cp chroot/boot/initrd.img* image/casper/initrd.lz
+sudo cp chroot/boot/initrd.img-$(uname -r) image/casper/initrd.lz
 
 # Install isolinux
 echo "sudo apt-get install --yes isolinux"
