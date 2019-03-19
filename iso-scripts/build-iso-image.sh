@@ -7,7 +7,7 @@ mkdir -p work/chroot
 cd work
 #sudo debootstrap --arch=$(uname -m) $(lsb_release -cs) chroot https://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 echo "sudo debootstrap --arch=amd64 $(lsb_release -cs) chroot https://mirrors.tuna.tsinghua.edu.cn/ubuntu/"
-sudo debootstrap --arch=amd64 $(lsb_release -cs) chroot https://mirrors.tuna.tsinghua.edu.cn/ubuntu/
+sudo debootstrap --arch=amd64 $(lsb_release -cs) chroot http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 
 # `mount --bind chroot chroot` step is necessary for Docker to run
 # For more information, refer links below:
