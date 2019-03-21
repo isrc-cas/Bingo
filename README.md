@@ -25,7 +25,7 @@ cd iso-scripts
 
 **TODO:**
   - 修改启动画面
-  - 解决 cgroupfs umount 不完全的问题
+  - 解决 ISO 镜像安装过程报错
 
 **Questions:**
   - ISO 镜像中需要包含哪些框架？
