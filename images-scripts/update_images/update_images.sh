@@ -25,18 +25,24 @@ i=1
 while read line
 do
   array=(${line// / })
-  if [[ ${array[0]} =~ "isrc.iscas.ac.cn" ]]
-  then 
-     tag="${array[0]}-official:${array[1]}"
-  else
-     tag="${array[0]}:${array[1]}"
-  fi
+  tag="${array[0]}:${array[1]}"
   if [[ $tag =~ "isrc.iscas.ac.cn" ]] 
   then 
       	if [[ $update == true ]] 
       	then
      	 	echo `docker tag $tmpTag $tag`
-      		#echo `docker push $tmpTag $tag`
+                #获得镜像的sha256值
+		respo=${array[0]#*/}
+                sha256=`curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET  http://192.168.8.10:5000/v2/${respo}/manifests/${array[1]} 2>&1 | grep Docker-Content-Digest | awk '{print ($3)}'`
+                if [-n "$sha256"]
+		then
+			#根据sha256，删除对应镜像
+                	echo `curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE http://192.168.8.10:5000/v2/${respo}/manifests/${sha256}`
+               		#垃圾回收
+	        	echo `docker exec -it registry  /bin/registry garbage-collect  /etc/docker/registry/config.yml`
+		fi
+		#上传新镜像
+		echo `docker push $tag`
         fi
   else
 	echo "$i: $tag"
