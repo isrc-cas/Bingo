@@ -3,13 +3,13 @@
 function checkImage(){
   update_results=$(sudo docker pull "$1")
   if [[ $update_results =~ "Status: Downloaded newer image" ]];then
-      echo "$1 : Downloaded newer image!" >>  "$2.log"
+    echo "$1 : Downloaded newer image!" >>  "$2.log"
     return 1
   elif [[ $update_results =~ "Status: Image is up to date" ]];then
-      echo "$1 : Image is up to date!"
+    echo "$1 : Image is up to date!"
     return 0
   else
-      echo "$1 : Error $update_results" >> "$2.log"
+    echo "$1 : Error $update_results" >> "$2.log"
     return 2
   fi
 }
