@@ -41,6 +41,41 @@ Docker 镜像维护
 | :heavy_multiplication_x: | [Deepo](https://github.com/ufoym/deepo) 的使用及维护方法                                                |
 | :heavy_multiplication_x: | 尝试用 Docker 包的方式提供训练数据仓库                                                                  |
 
-寒武纪 Docker 镜像尝试拆分
+寒武纪 Docker 镜像
 --------------------------------------------------------------------------------
-TODO
+
+寒武纪镜像尝试拆分完成，目前支持框架如下：
+
+| REPOSITORY                            |  TAG    | size    |
+| :-----------------------------------: | :-----: | :-----: |
+| isrc.iscas.ac.cn/tensorflow-cambricon |  latest | 2.51GB  |
+| isrc.iscas.ac.cn/caffe-cambricon      |  latest | 3.1GB   |
+| isrc.iscas.ac.cn/mxnet-cambricon      |  latest | 2.68GB  |
+
+####　TODO
+
+将模型文件和训练图片等文件，以镜像的方式提供，在数据容器内运行 NFS 之类的服务，以此与执行容器共享数据．
+
+寒武纪镜像生成：
+```sh
+sudo docker build -t caffe-cambricon:latest -f ../caffe.Dockerfile .
+sudo docker build -t mxnet-cambricon:latest -f ../mxnet.Dockerfile .
+sudo docker build -t tensorflow-cambricon:latest -f ../tensorflow.Dockerfile .
+```
+
+寒武纪容器运行方法：
+```sh
+sudo docker run -it   --privileged  --rm \
+-v /home/iscas-x/build-cambricon-docker-images/dataset-image/dataset/:/home/Cambricon/dataset \
+caffe-cambricon bash
+```
+
+在容器中运行 examples：
+```sh
+cd caffe/examples/classification/classification_offline_multicore/
+./run.sh alexnet dense float16 1 4 8
+```
+
+#### 注意
+1. `-v /lib/:/lib`/lib 目录的挂载是在容器中 load 驱动程序的关键。
+2.  `tools/ cnrt/ cnml/` 等路径为寒武纪 runtime 所必须依赖的链接库，而非额外的不知名框架。
