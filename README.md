@@ -52,7 +52,7 @@ Docker 镜像维护
 | isrc.iscas.ac.cn/caffe-cambricon      |  latest | 3.1GB   |
 | isrc.iscas.ac.cn/mxnet-cambricon      |  latest | 2.68GB  |
 
-####　TODO
+#### TODO
 
 将模型文件和训练图片等文件，以镜像的方式提供，在数据容器内运行 NFS 之类的服务，以此与执行容器共享数据．
 
