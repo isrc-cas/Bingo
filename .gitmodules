@@ -1,0 +1,3 @@
+[submodule "images-scripts/deepo"]
+	path = images-scripts/deepo
+	url = https://github.com/ufoym/deepo.git
