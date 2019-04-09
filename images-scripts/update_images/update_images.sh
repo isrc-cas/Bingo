@@ -48,4 +48,4 @@ while read line; do
       tmpTag=$tag
     fi
   fi
-done < 'list-config' 
+done < 'list-config'

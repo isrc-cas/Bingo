@@ -2,7 +2,7 @@
 
 ## Registry REST API
 1. 列出所有的镜像仓库（repositories):
-  ```sh	
+  ```sh
   # curl -X GET http://<registry_ip>:<registry_port>/v2/_catalog
   curl -X GET http://192.168.8.10:5000/v2/_catalog
   ```
@@ -20,25 +20,25 @@
       ```sh
       curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X GET  http://192.168.8.10:5000/v2/sonnet-official/manifests/latest 2>&1 | grep Docker-Content-Digest | awk '{print ($3)}'
       ```
-      Digest输出例子         	
+      Digest输出例子
       ```sh
       sha256:2fa224fc6720472c6b3bb87b23aba7d61e63f9f0fb074e6f38a71391a9b6ba26
       ```
     - 根据digest删除镜像
       ```sh
-	  curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE http://192.168.8.10:5000/v2/sonnet-official/manifests/sha256:2fa224fc6720472c6b3bb87b23aba7d61e63f9f0fb074e6f38a71391a9b6ba26
+      curl -v --silent -H "Accept: application/vnd.docker.distribution.manifest.v2+json" -X DELETE http://192.168.8.10:5000/v2/sonnet-official/manifests/sha256:2fa224fc6720472c6b3bb87b23aba7d61e63f9f0fb074e6f38a71391a9b6ba26
       ```
 
       **注意：**
-        - 因为缺省Docker private registry不允许删除镜像，如果遇到“405 Unsupported” 错误，需要在运行registry容器时设置REGISTRY_STORAGE_DELETE_ENABLED环境变量或参数为true。    
-      - 即启动registry容器时使用如下命令    		
+        - 因为缺省Docker private registry不允许删除镜像，如果遇到“405 Unsupported” 错误，需要在运行registry容器时设置REGISTRY_STORAGE_DELETE_ENABLED环境变量或参数为true。
+      - 即启动registry容器时使用如下命令
         ```sh
         sudo docker run -d -e REGISTRY_STORAGE_DELETE_ENABLED="true"  -p 5000:5000   --restart=always   --name registry   registry:2
         ```
         这里的删除镜像只是删除了一些元数据，需要执行下面的垃圾回收才能真正地从硬盘上删除镜像数据。
 
-    - 垃圾回收    
-      进入registry容器，执行garbage-collect 命令执行垃圾回收。    
+    - 垃圾回收
+      进入registry容器，执行garbage-collect 命令执行垃圾回收。
       ```sh
       docker exec -it registry  /bin/registry garbage-collect  /etc/docker/registry/config.yml
       ```
