@@ -1,4 +1,4 @@
-# bingo
+# Bingo
 
 Building Machine Learning Operating System - Scripts and Document
 --------------------------------------------------------------------------------
@@ -36,9 +36,9 @@ Docker 镜像维护
 | 完成情况                 |                                              任务                                                       |
 | :----------------------: | :-----------------------------------------------------------------------------------------------------: |
 | :heavy_check_mark:       | 维护官方仓库和 Deepo 仓库的自动脚本，自动周期推送至位于 http://isrc.iscas.ac.cn/ 服务器的 Registry 仓库 |
+| :heavy_check_mark:       | Registry 仓库使用说明文档                                                                               |
+| :heavy_check_mark:       | [Deepo](https://github.com/ufoym/deepo) 的使用及维护方法                                                |
 | :heavy_multiplication_x: | Deepo 构建的 Docker 仓库正确性验证，自动化脚本                                                          |
-| :heavy_multiplication_x: | Registry 仓库使用说明文档                                                                               |
-| :heavy_multiplication_x: | [Deepo](https://github.com/ufoym/deepo) 的使用及维护方法                                                |
 | :heavy_multiplication_x: | 尝试用 Docker 包的方式提供训练数据仓库                                                                  |
 
 寒武纪 Docker 镜像
@@ -52,9 +52,6 @@ Docker 镜像维护
 | isrc.iscas.ac.cn/caffe-cambricon      |  latest | 3.1GB   |
 | isrc.iscas.ac.cn/mxnet-cambricon      |  latest | 2.68GB  |
 
-#### TODO
-
-将模型文件和训练图片等文件，以镜像的方式提供，在数据容器内运行 NFS 之类的服务，以此与执行容器共享数据．
 
 寒武纪镜像生成：
 ```sh
@@ -79,3 +76,7 @@ cd caffe/examples/classification/classification_offline_multicore/
 #### 注意
 1. `-v /lib/:/lib`/lib 目录的挂载是在容器中 load 驱动程序的关键。
 2.  `tools/ cnrt/ cnml/` 等路径为寒武纪 runtime 所必须依赖的链接库，而非额外的不知名框架。
+
+#### TODO
+
+将模型文件和训练图片等文件，以镜像的方式提供，在数据容器内运行 NFS 之类的服务，以此与执行容器共享数据．
